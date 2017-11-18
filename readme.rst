@@ -5,7 +5,8 @@ Booking engine to manage vehicle inventory and Bookings.
 -----------
 
 Note: **Under Progress**
-------------------------
+      Install requirements before running
+-------------------------------------------
 
 -Models
  -User
