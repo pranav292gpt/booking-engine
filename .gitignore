@@ -113,5 +113,10 @@ venv.bak/
 # mypy
 .mypy_cache/
 
+#vim files
+*~
+*.swp
+*.swo
+
 # End of https://www.gitignore.io/api/python,django
 
