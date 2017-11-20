@@ -12,3 +12,13 @@ Note: **Under Progress**
  -User
  -Booking
  -Inventory
+
+------------------------------------------
+-Views
+-Booking View
+ -To manage all CRUD operations on Bookings
+
+-------------------------------------------
+-Serializers
+ -Booking serializer
+ -Inventory serializer
