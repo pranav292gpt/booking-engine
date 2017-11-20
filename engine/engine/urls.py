@@ -21,6 +21,6 @@ v1_urlpatterns = [
 ]
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    url(r'^api/admin/', admin.site.urls),
     url(r'^api/v1/', include(v1_urlpatterns)),
 ]
