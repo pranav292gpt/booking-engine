@@ -1,7 +1,7 @@
 from django.db import models
 from inventory import Inventory
 from Timestampedmodel import Timestampedmodel
-from django.contrib.auth.models import User
+from user import User
 
 #Booking model from managing all  user and invetory booking data
 #TODO: Add quantity if single user is allowed multiple vehicles

@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from db.models import User
 from rest_framework import viewsets, mixins
 from db.models import Booking
 from rest_framework.authentication import  TokenAuthentication
