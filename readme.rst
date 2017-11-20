@@ -8,17 +8,17 @@ Note: **Under Progress**
       Install requirements before running
 -------------------------------------------
 
--Models
- -User
- -Booking
- -Inventory
+Models
+-User
+-Booking
+-Inventory
 
 ------------------------------------------
--Views
+Views
 -Booking View
- -To manage all CRUD operations on Bookings
+-To manage all CRUD operations on Bookings
 
 -------------------------------------------
--Serializers
- -Booking serializer
- -Inventory serializer
+Serializers
+-Booking serializer
+-Inventory serializer
