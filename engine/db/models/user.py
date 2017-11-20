@@ -31,4 +31,4 @@ class User(AbstractBaseUser, Timestampedmodel):
         return self.first_name + ' ' + self.last_name
 
     def __unicode__(self):
-        return self.mobile
+        return self.username
