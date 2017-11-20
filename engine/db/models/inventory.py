@@ -14,3 +14,6 @@ class Inventory(Timestampedmodel):
     quantity = models.IntegerField()
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
+
+    def __unicode__(self):
+        return unicode(self.id)
