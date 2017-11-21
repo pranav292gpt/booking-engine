@@ -19,6 +19,9 @@ Views
 -Booking View
  -To manage all CRUD operations on Bookings
 
+-User View
+ -To manage CRUD operations on Users
+
 Serializers
 -------------------------------------------------
 -Booking serializer
