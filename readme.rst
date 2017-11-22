@@ -11,24 +11,46 @@ Install requirements before running
 Models
 -------------------------------------------------
 -User
+
 -Booking
+
 -Inventory
 
 Views
 -------------------------------------------------
--Booking View
- -To manage all CRUD operations on Bookings
+- Booking View
+ 
+ - To manage all CRUD operations on Bookings
+ 
+ - URLS:
+   
+   - For creating and viewing user bookings: /api/v1/bookings/
 
--User View
- -To manage CRUD operations on Users
+- User View
+ 
+ - To manage CRUD operations on Users
+ 
+ - URLS:
+  
+   - For creating a new user(signup): /api/v1/user/
 
 Serializers
 -------------------------------------------------
--Booking serializer
- -To Serialize Booking objects
+- User Serializer
+ 
+  - To serialize user data while signup
 
--Inventory serializer
- -To Serialize Inventory objects
+- Login Serializer
+
+  - To serialize user data while login
+
+- Booking serializer
+ 
+  - To Serialize Booking objects
+
+- Inventory serializer
+
+  - To Serialize Inventory objects
 
 How to Build (Step wise)
 -------------------------------------------------
