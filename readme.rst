@@ -10,11 +10,26 @@ Install requirements before running
 
 Models
 -------------------------------------------------
--User
+- User
 
--Booking
+- Booking
 
--Inventory
+- Inventory
+
+- Site
+
+ - City
+ - Site Address
+ - Site
+
+- Coupon
+
+ - Coupon(Abstract)
+ - Percent Discount(Abstract)
+ - Direct Discount(Abstract)
+ - Offer (General offer available for all)
+ - Reward (User specific offer/Coupon)
+
 
 Views
 -------------------------------------------------
