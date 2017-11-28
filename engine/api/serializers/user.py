@@ -5,7 +5,7 @@ from db.models import User
 class UserSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = User
-                fields = ('email', 'password', 'username')
+                fields = ('email', 'password', 'username', 'refferal_code', 'install_type')
 
 #LoninSerializer to serialize data while login
 class LoginSerializer(serializers.Serializer):
