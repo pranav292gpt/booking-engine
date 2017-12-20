@@ -21,6 +21,7 @@ class SiteAddress(Timestampedmodel):
 
 #Site details 
 class Site(Timestampedmodel):
+    is_active = models.BooleanField(default=True)
     name = models.CharField(max_length=64)
     address = models.OneToOneField(SiteAddress, related_name="sites")
     start_time = models.DateTimeField(auto_now=True)
