@@ -9,6 +9,10 @@ from rest_framework.response import Response
 from django.contrib.auth import authenticate
 from rest_framework.serializers import ValidationError
 import uuid
+import random
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
+from api.tasks import send_verification_mail
 
 # User view set to create, update or delete user objects
 class UserViewSet(mixins.CreateModelMixin, mixins.UpdateModelMixin,viewsets.GenericViewSet):
@@ -82,3 +86,30 @@ class UserViewSet(mixins.CreateModelMixin, mixins.UpdateModelMixin,viewsets.Gene
                             'email': user.email})
         else:
             raise ValidationError({'detail':'invalid credentials'})
+
+    # Send verification email to user
+    @list_route(methods=['POST'],authentication_classes=[TokenAuthentication],
+           permission_classes=[IsAuthenticated])
+    def get_verification_code(self, request, *args, **kwargs):
+        otp = random.randint(1000, 9999)
+        email=request.POST['email']
+        user=request.user
+
+        user.otp=otp
+        user.email=email
+        user.save(update_fields=['email', 'otp'])
+
+        send_verification_mail.delay(email,otp)
+        return Response({"success" : "verification mail sent"})
+
+    # Verify email through otp
+    @list_route(methods=['POST'],authentication_classes=[TokenAuthentication],
+           permission_classes=[IsAuthenticated])
+    def verify_email(self, request, *args, **kwargs):
+        user = request.user
+        otp = request.POST['otp']
+        if user.otp == int(otp):
+            user.verified = True
+            user.save(update_fields=['verified'])
+            return Response({"success" : "verified"})
+        return Response({"Error": "Incorrect OTP"})

@@ -3,6 +3,10 @@ from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import UserManager
 from Timestampedmodel import Timestampedmodel
 from django.contrib.postgres.fields import ArrayField
+from django.core.validators import (
+    MaxValueValidator,
+    MinValueValidator,
+)
 
 #User model to replace Django's default User.
 class User(AbstractBaseUser, Timestampedmodel):
@@ -32,6 +36,17 @@ class User(AbstractBaseUser, Timestampedmodel):
 
     install_type = models.CharField(max_length=32, choices=install_type_choices, default='o')
 
+    #otp for email verification
+    otp	= models.IntegerField(
+        null=True,
+        blank=True,
+        validators=[
+            MinValueValidator(1000),
+            MaxValueValidator(9999)
+]
+    )
+
+    verified = models.BooleanField(default=False)
 
     objects = UserManager()
     USERNAME_FIELD = 'email'
