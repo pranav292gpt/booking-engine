@@ -4,10 +4,10 @@ from django.db.models import Q
 from django.db.models import Sum
 
 #Method to check if vehicle is available in inventory
-def booking_availability(start, end, inventory):
+def booking_availability(start, end, inventory, quantity):
 
     #All booking objects except cancelled one's
-    bookings = Booking.objects.filter(status__in=[1,2,3])
+    bookings = Booking.objects.filter(status__in=[1,2,3], inventory=inventory)
 
     #if atleast one such booking exists
     if bookings.count():
@@ -18,11 +18,13 @@ def booking_availability(start, end, inventory):
                     |Q(start_time__lt=start ,end_time__gt=start))
         
         #Count of booking objects between start time and end time
-        booking_count  = bookings.count()
-    
+        booking_count = bookings.aggregate(Sum('quantity'))['quantity__sum']
+        if not booking_count:
+            booking_count = 0
+
     #If no booking exists
     else:
         booking_count=0
     
     #If quantity of inventory is greater then bookings, return true otherwise false
-    return 1  <= inventory.quantity - booking_count
+    return quantity <= inventory.quantity - booking_count

@@ -11,6 +11,7 @@ class Booking(Timestampedmodel):
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
     status = models.IntegerField()
+    quantity = models.IntegerField()
 
     def __unicode__(self):
         return unicode(self.id)

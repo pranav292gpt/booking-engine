@@ -40,14 +40,16 @@ class BookingViewSet(mixins.ListModelMixin, mixins.CreateModelMixin,
 
         start_time = data['start_time']
         end_time = data['end_time']
+        inventory = data['inventory']
+        quantity = data['quantity']
 
-        inventory = Inventory.objects.first()
+        inventory = Inventory.objects.get(id=1)
 
         #Check inventory availability from start time to end time for given inventory
-        if booking_availability(start_time, end_time,inventory):
+        if booking_availability(start_time, end_time,inventory, quantity):
 
             #Create Booking if available
-            serializer.save(inventory=inventory,status=1,user=request.user,)
+            serializer.save(inventory=inventory,status=1,user=request.user)
             return Response({"status":"Created"})
 
         #Return output with error if vehicle is not available
