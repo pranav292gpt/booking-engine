@@ -7,6 +7,8 @@ from rest_framework.response import Response
 from db.models.inventory import Inventory
 from api.serializers import BookingSerializer
 from api.libs.booking_availability import booking_availability
+from rest_framework import status
+from rest_framework.decorators import list_route
 
 
 #BookingVeiwSet to manage, and perform CRUD operations on bookings
@@ -55,3 +57,14 @@ class BookingViewSet(mixins.ListModelMixin, mixins.CreateModelMixin,
         #Return output with error if vehicle is not available
         else:
             return Response({"Error" : "Requested number of objects not available"})
+
+
+    @list_route(methods=['POST'])
+    def cancel(self, request, *args, **kwargs):
+        booking_id = request.POST['booking_id']
+        booking = Booking.objects.get(id=booking_id)
+        if request.user == booking.user:
+            booking.status = 4
+            booking.save(update_fields=['status'])
+            return Response({"success": "Booking cancelled"})
+        return Response({"Error": "Forbidden"}, status.HTTP_403_FORBIDDEN)
