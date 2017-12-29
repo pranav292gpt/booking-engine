@@ -89,18 +89,22 @@ Serializers
 - User Serializer
  
   - To serialize user data while signup
+  - Fields: email, password, username, refferal_code, install_type
 
 - Login Serializer
 
   - To serialize user data while login
+  - Fields: email, password
 
 - Booking serializer
  
   - To Serialize Booking objects
+  - Fields:id, start_time, end_time, inventory, quantity
 
 - Inventory Serializer
 
   - To Serialize Inventory objects
+  - Fields:type, site, quantity, start_time, end_time
 
 - Offer Serializer
 
