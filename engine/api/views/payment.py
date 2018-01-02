@@ -23,5 +23,13 @@ class PaymentViewSet(mixins.CreateModelMixin, mixins.UpdateModelMixin,viewsets.G
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
+
+        ''' If payment status is 0(confirmed)'''
+        if serializer.data['status']==4:
+
+            '''Change the status of the booking to unpaid to upcoming'''
+            booking = Booking.objects.get(id=serializer.data['booking'])
+            booking.status = 1
+            booking.save(update_fields=['status'])
         return Response({'status': 'created'})
         

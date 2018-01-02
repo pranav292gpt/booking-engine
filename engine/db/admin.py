@@ -8,7 +8,7 @@ import datetime
 from django.http import HttpResponse, HttpResponseRedirect
 
 from models import Inventory, User, Booking, SiteAddress, City, Site
-from models import Offer, Reward
+from models import Offer, Reward, Payment
 
 
 #Method to create csv for data
@@ -68,3 +68,6 @@ admin.site.register(City, CSV_ENABLED_Admin)
 #Coupon Admin Registration
 admin.site.register(Reward, CSV_ENABLED_Admin)
 admin.site.register(Offer, CSV_ENABLED_Admin)
+
+#Payment Admin Registration
+admin.site.register(Payment, CSV_ENABLED_Admin)
