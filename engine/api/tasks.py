@@ -16,7 +16,7 @@ def send_verification_mail(reciever, code):
     send_mail(subject, message, sender, [reciever], fail_silently=False)
     return code
 
-''' Send notification email to users if they have upcoming bookings'''
+'''
 @shared_task
 def send_booking_status_mail(booking_object):
     email = booking_object.user.email
@@ -27,19 +27,30 @@ def send_booking_status_mail(booking_object):
         send_mail(subject, message, sender, [email], fail_silently=False)
         return "Verification mail sent"
 
-''' Update the status of bookings with time'''
 @shared_task
 def booking_status_update():
     today = datetime.date.today()
     tomorrow = today + timedelta(days=1)
-
-    ''' filter bookings with status as either upcoming or pending'''
     bookings = Booking.objects.filter(status__in=[1,2])
 
-    ''' filter bookings that have start tie less then tomorrow, and end time greater then today'''
     bookings = bookings.filter(start_time__lte=tomorrow, end_time__gt=today)
 
-    ''' send notification mails to users for upcoming bookings'''
     for object in bookings:
         send_booking_status_mail(object)
         return 'sent mail'
+
+
+'''
+
+''' Send notification email to users if they have upcoming bookings'''
+@shared_task
+def send_booking_notification(booking_id):
+    booking = Booking.objects.get(id=booking_id)
+    email = booking.user.email
+    if email:
+        subject = 'Booking notification'
+        message = "Dear user. You have a booking tomorrow"
+        sender = 'pranav292gpt@gmail.com'
+        send_mail(subject, message, sender, [email], fail_silently=False)
+        return "Verification mail sent"
+

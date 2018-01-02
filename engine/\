@@ -54,13 +54,14 @@ class BookingViewSet(mixins.ListModelMixin, mixins.CreateModelMixin,
 
             #Create Booking if available
             serializer.save(inventory=inventory,status=1,user=request.user)
-            booking_id = serializer.data['id']
+            booking = Booking.objects.get(id=serializer.data['id'])
             
 
             notification_time = start_time - timedelta(days=1)
+            print notification_time
 
             #Add task in celery to send notification mail at particular time
-            send_booking_notification.apply_async((args=booking_id), eta=notification_time)
+                #send_booking_notification.apply_async((booking), eta=notification_time)
             return Response({"status":"Created"})
 
         #Return output with error if vehicle is not available
