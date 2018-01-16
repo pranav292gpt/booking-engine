@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'django_celery_beat',
+    'graphene_django',
     'db',
     'api',
 ]
@@ -125,6 +126,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+GRAPHENE = {
+            'SCHEMA': 'engine.schema.schema'
+            }
+
 
 try:
     from local_settings import *
