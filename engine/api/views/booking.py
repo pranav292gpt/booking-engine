@@ -9,6 +9,7 @@ from api.serializers import BookingSerializer
 from api.libs.booking_availability import booking_availability
 from rest_framework import status
 from rest_framework.decorators import list_route
+from db.models import Reward, Offer
 
 
 #BookingVeiwSet to manage, and perform CRUD operations on bookings
@@ -44,6 +45,18 @@ class BookingViewSet(mixins.ListModelMixin, mixins.CreateModelMixin,
         end_time = data['end_time']
         inventory = data['inventory']
         quantity = data['quantity']
+        offer = data.get('offer')
+        reward = data.get('reward_applied')
+        
+        #Check if reward or offer are valid
+        if offer:
+            if not Offer.objects.filter(code=offer).exists():
+                return Response({"Error": "Offer code applied is invalid"})
+
+        if reward:
+            if not Reward.objects.filter(code=reward).exists():
+                return Response({"Error": "Reward code applied is invalid"}) 
+
 
         inventory = Inventory.objects.get(id=1)
 

@@ -2,6 +2,7 @@ from django.db import models
 from inventory import Inventory
 from Timestampedmodel import Timestampedmodel
 from user import User
+from coupon import Offer, Reward
 
 #Booking model from managing all  user and invetory booking data
 #TODO: Add quantity if single user is allowed multiple vehicles
@@ -19,6 +20,8 @@ class Booking(Timestampedmodel):
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
     status = models.IntegerField(default=0, choices=BOOKING_STATUS)
+    offer_applied = models.OneToOneField(Offer, null=True, blank=True)
+    reward_applied = models.OneToOneField(Reward, null=True, blank=True)
     quantity = models.IntegerField()
 
     def __unicode__(self):
